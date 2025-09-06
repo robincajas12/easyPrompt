@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Prompt Composer Extension",
+  "version": "1.0",
+  "description": "Usa plantillas de prompt en cualquier campo de texto.",
+  "permissions": [
+    "storage"
+  ],
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "dist/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "dist/content.js"
+      ]
+    }
+  ],
+  "commands": {
+    "execute-prompt": {
+      "suggested_key": {
+        "default": "Alt+P"
+      },
+      "description": "Reemplaza la plantilla en el campo de texto activo"
+    }
+  }
+}
