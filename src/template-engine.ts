@@ -34,19 +34,13 @@ const functionMap: { [key: string]: (...args: any[]) => string } = {
   asSummarization: composer.asSummarization,
   asTranslation: composer.asTranslation,
   asCorrection: composer.asCorrection,
-  extract: composer.extract,
-  classifyInto: composer.classifyInto,
   generateList: composer.generateList, // Nueva
   rephrase: composer.rephrase, // Nueva
-  answerQuestion: composer.answerQuestion, // Nueva
+  //Context
+  getDate: composer.getDate,
+  getTime: composer.getTime,
   // Constraints
   withConstraint: composer.withConstraint,
-  avoid: composer.avoid,
-  withStepByStepThinking: composer.withStepByStepThinking,
-  // Context
-  withContext: composer.withContext,
-  withExamples: composer.withExamples,
-  withKeywords: composer.withKeywords,
   // Format
   withOutputFormat: composer.withOutputFormat,
   // Structure
@@ -56,6 +50,7 @@ const functionMap: { [key: string]: (...args: any[]) => string } = {
   // Style
   withTone: composer.withTone,
   withLength: composer.withLength,
+
 };
 
 // Mapa de metadatos de las funciones integradas
@@ -75,16 +70,6 @@ const builtInFunctionMetadataMap: { [key: string]: FunctionMetadata } = {
     description: 'Instructs the model to correct the grammar and style of the text.',
     parameters: [],
   },
-  extract: {
-    name: 'extract',
-    description: 'Instructs the model to extract specific information from the text.',
-    parameters: [{ name: 'items', type: 'string[]' }],
-  },
-  classifyInto: {
-    name: 'classifyInto',
-    description: 'Instructs the model to classify the text into one of several categories.',
-    parameters: [{ name: 'categories', type: 'string[]' }],
-  },
   generateList: {
     name: 'generateList',
     description: 'Generates a list from provided items.',
@@ -101,43 +86,10 @@ const builtInFunctionMetadataMap: { [key: string]: FunctionMetadata } = {
       { name: 'style', type: 'string', optional: true, defaultValue: "'more formal'" }
     ],
   },
-  answerQuestion: {
-    name: 'answerQuestion',
-    description: 'Answers a question based on provided context.',
-    parameters: [
-      { name: 'question', type: 'string' },
-      { name: 'context', type: 'string' }
-    ],
-  },
   withConstraint: {
     name: 'withConstraint',
     description: 'Creates a prompt fragment that adds a constraint or rule.',
     parameters: [{ name: 'constraint', type: 'string' }],
-  },
-  avoid: {
-    name: 'avoid',
-    description: 'Asks the model to avoid certain topics or words.',
-    parameters: [{ name: 'thingsToAvoid', type: 'string[]' }],
-  },
-  withStepByStepThinking: {
-    name: 'withStepByStepThinking',
-    description: 'Instructs the model to think step-by-step before responding.',
-    parameters: [],
-  },
-  withContext: {
-    name: 'withContext',
-    description: 'Adds a block of context or input data to the prompt.',
-    parameters: [{ name: 'text', type: 'string' }, { name: 'label', type: 'string', optional: true, defaultValue: "'CONTEXT'" }],
-  },
-  withExamples: {
-    name: 'withExamples',
-    description: 'Formats one or more few-shot examples to guide the model.',
-    parameters: [{ name: 'examples', type: 'Array<{ input: string; output: string }>' }],
-  },
-  withKeywords: {
-    name: 'withKeywords',
-    description: 'Ensures that certain keywords are included in the response.',
-    parameters: [{ name: 'keywords', type: 'string[]' }],
   },
   withOutputFormat: {
     name: 'withOutputFormat',
@@ -169,7 +121,18 @@ const builtInFunctionMetadataMap: { [key: string]: FunctionMetadata } = {
     description: 'Specifies the desired length for the response.',
     parameters: [{ name: 'length', type: 'string' }],
   },
+  getDate: {
+    name: 'getDate',
+    description: 'Returns the current date in a readable format.',
+    parameters: [],
+  },
+  getTime: {
+    name: 'getTime',
+    description: 'Returns the current time in a readable format.',
+    parameters: [],
+  },
 };
+
 
 /**
  * Devuelve una lista de los metadatos de las funciones de plantilla disponibles (integradas y personalizadas).

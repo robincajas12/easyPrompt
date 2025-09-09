@@ -134,8 +134,8 @@ function showSuggestionBox(x: number, y: number, suggestions: string[]) {
 
 function showParameterHintBox(x: number, y: number, metadata: FunctionMetadata) {
   const box = createParameterHintBox();
-  box.style.left = `${x}px`;
-  box.style.top = `${y}px`;
+  box.style.left = `${x+25}px`;
+  box.style.top = `${y-25}px`;
   box.style.display = 'block';
 
   let content = `<b>${metadata.name}</b>(`;
