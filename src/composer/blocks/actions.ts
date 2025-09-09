@@ -24,24 +24,6 @@ export function asCorrection(): string {
   return 'Correct the grammar and spelling of the provided text. Maintain the original meaning but improve fluency and clarity.';
 }
 
-/**
- * Generates a prompt fragment to extract specific information from a text.
- * @param items An array of strings describing the data to extract.
- * @returns The prompt fragment string.
- */
-export function extract(items: string[]): string {
-  if (items.length === 0) return 'Extract key information from the text.';
-  return `From the provided text, specifically extract the following information: ${items.join(', ')}.`;
-}
-
-/**
- * Generates a prompt fragment to classify a text into one of several categories.
- * @param categories An array of possible categories.
- * @returns The prompt fragment string.
- */
-export function classifyInto(categories: string[]): string {
-  return `Classify the provided text into one of the following categories: ${categories.join(', ')}. Respond only with the category name.`;
-}
 
 /**
  * Generates a prompt fragment to create a list from provided items.
@@ -61,14 +43,4 @@ export function generateList(items: string[], format: string = 'bullet points'):
  */
 export function rephrase(text: string, style: string = 'more formal'): string {
   return `Rephrase the following text in a ${style} style: """${text}""".`;
-}
-
-/**
- * Generates a prompt fragment to answer a question based on provided context.
- * @param question The question to be answered.
- * @param context The context from which to answer the question.
- * @returns The prompt fragment string.
- */
-export function answerQuestion(question: string, context: string): string {
-  return `Answer the question: "${question}" based on the following context: """${context}""".`;
 }

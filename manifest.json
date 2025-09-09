@@ -1,14 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Prompt Composer Extension",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "Usa plantillas de prompt en cualquier campo de texto.",
   "permissions": [
     "storage"
   ],
   "options_page": "options.html",
   "background": {
-    "service_worker": "dist/background.js"
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
@@ -17,7 +17,7 @@
         "https://*/*"
       ],
       "js": [
-        "dist/content.js"
+        "content.js"
       ]
     }
   ],

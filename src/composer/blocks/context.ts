@@ -1,31 +1,24 @@
 /**
- * Añade un bloque de contexto o datos de entrada al prompt.
- * @param text El texto principal o datos a procesar.
- * @param label Una etiqueta para el bloque de contexto (ej: "TEXTO A ANALIZAR").
- * @returns El string del fragmento del prompt.
+ * Get the current date in a prompt-friendly format. DD/MM/YYYY.
+ * @returns The prompt fragment string.
  */
-export function withContext(text: string, label: string = 'CONTEXTO'): string {
-  return `${label.toUpperCase()}:\n"""\n${text}\n"""`;
+export function getDate(): string {
+  const now = new Date();
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0'); 
+  const year = now.getFullYear();
+  return `${day}/${month}/${year}.`;
 }
 
 /**
- * Formatea uno o más ejemplos (few-shot) para guiar al modelo.
- * @param examples Un array de objetos con pares de 'input' y 'output'.
- * @returns Una cadena de texto con todos los ejemplos formateados.
+ * 
+ * @returns The current time in HH:MM format.
  */
-export function withExamples(examples: Array<{ input: string; output: string }>): string {
-  const formattedExamples = examples
-    .map(ex => `Ejemplo:\nInput: ${ex.input}\nOutput: ${ex.output}`)
-    .join('\n\n');
-  return `A continuación se muestran algunos ejemplos:\n${formattedExamples}`;
-}
+export function getTime(): string {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  return `${hours}:${minutes}.`;
+} 
 
-/**
- * Asegura que ciertas palabras clave se incluyan en la respuesta.
- * @param keywords Un array de palabras o frases a incluir.
- * @returns El string del fragmento del prompt.
- */
-export function withKeywords(keywords: string[]): string {
-  if (keywords.length === 0) return '';
-  return `Asegúrate de incluir y dar importancia a las siguientes palabras clave: ${keywords.join(', ')}.`;
-}
+

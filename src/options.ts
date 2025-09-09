@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const functionParamsInput = document.getElementById('functionParams') as HTMLInputElement;
     const functionBodyInput = document.getElementById('functionBody') as HTMLTextAreaElement;
 
+    const addFunctionModal = document.getElementById('addFunctionModal');
+    const addFunctionBtn = document.getElementById('addFunctionBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
     interface CustomFunctionParam {
         name: string;
         type: string;
@@ -17,6 +21,30 @@ document.addEventListener('DOMContentLoaded', () => {
         parameters: CustomFunctionParam[];
         body: string;
     }
+
+    function openModal() {
+        if (addFunctionModal) addFunctionModal.style.display = 'block';
+    }
+
+    function closeModal() {
+        if (addFunctionModal) addFunctionModal.style.display = 'none';
+        clearForm();
+    }
+
+    function clearForm() {
+        functionNameInput.value = '';
+        functionDescriptionInput.value = '';
+        functionParamsInput.value = '';
+        functionBodyInput.value = '';
+    }
+
+    addFunctionBtn?.addEventListener('click', openModal);
+    closeModalBtn?.addEventListener('click', closeModal);
+    window.addEventListener('click', (event) => {
+        if (event.target == addFunctionModal) {
+            closeModal();
+        }
+    });
 
     // Load functions
     function loadFunctions() {
@@ -73,10 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             chrome.storage.local.set({ customFunctions }, () => {
                 alert('Function saved!');
-                functionNameInput.value = '';
-                functionDescriptionInput.value = '';
-                functionParamsInput.value = '';
-                functionBodyInput.value = '';
+                closeModal();
                 loadFunctions();
             });
         });
